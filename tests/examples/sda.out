@@ -1,0 +1,498 @@
+{
+  "json_format_version": [
+    1,
+    0
+  ],
+  "smartctl": {
+    "version": [
+      7,
+      0
+    ],
+    "svn_revision": "4883",
+    "platform_info": "x86_64-linux-3.10.0-1127.10.1.el7.x86_64",
+    "build_info": "(local build)",
+    "argv": [
+      "smartctl",
+      "-l",
+      "devstat",
+      "/dev/sda",
+      "-j"
+    ],
+    "exit_status": 0
+  },
+  "device": {
+    "name": "/dev/sda",
+    "info_name": "/dev/sda [SAT]",
+    "type": "sat",
+    "protocol": "ATA"
+  },
+  "ata_device_statistics": {
+    "pages": [
+      {
+        "number": 1,
+        "name": "General Statistics",
+        "revision": 2,
+        "table": [
+          {
+            "offset": 8,
+            "name": "Lifetime Power-On Resets",
+            "size": 4,
+            "value": 18,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 24,
+            "name": "Logical Sectors Written",
+            "size": 6,
+            "value": 5905175638,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 32,
+            "name": "Number of Write Commands",
+            "size": 6,
+            "value": 317676220,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 40,
+            "name": "Logical Sectors Read",
+            "size": 6,
+            "value": 7239989861,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 48,
+            "name": "Number of Read Commands",
+            "size": 6,
+            "value": 382465787,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 56,
+            "name": "Date and Time TimeStamp",
+            "size": 6,
+            "value": 52599413500,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "name": "Rotating Media Statistics",
+        "revision": 1,
+        "table": [
+          {
+            "offset": 8,
+            "name": "Spindle Motor Power-on Hours",
+            "size": 4,
+            "value": 14248,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 16,
+            "name": "Head Flying Hours",
+            "size": 4,
+            "value": 14248,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 24,
+            "name": "Head Load Events",
+            "size": 4,
+            "value": 653,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 32,
+            "name": "Number of Reallocated Logical Sectors",
+            "size": 4,
+            "value": 69,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 40,
+            "name": "Read Recovery Attempts",
+            "size": 4,
+            "value": 1785427,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 48,
+            "name": "Number of Mechanical Start Failures",
+            "size": 4,
+            "value": 0,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "name": "General Errors Statistics",
+        "revision": 1,
+        "table": [
+          {
+            "offset": 8,
+            "name": "Number of Reported Uncorrectable Errors",
+            "size": 4,
+            "value": 104,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 16,
+            "name": "Resets Between Cmd Acceptance and Completion",
+            "size": 4,
+            "value": 1,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "name": "Temperature Statistics",
+        "revision": 1,
+        "table": [
+          {
+            "offset": 8,
+            "name": "Current Temperature",
+            "size": 1,
+            "value": 33,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 16,
+            "name": "Average Short Term Temperature",
+            "size": 1,
+            "value": 32,
+            "flags": {
+              "value": 224,
+              "string": "VN-- ",
+              "valid": true,
+              "normalized": true,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 24,
+            "name": "Average Long Term Temperature",
+            "size": 1,
+            "value": 33,
+            "flags": {
+              "value": 224,
+              "string": "VN-- ",
+              "valid": true,
+              "normalized": true,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 32,
+            "name": "Highest Temperature",
+            "size": 1,
+            "value": 47,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 40,
+            "name": "Lowest Temperature",
+            "size": 1,
+            "value": 19,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 48,
+            "name": "Highest Average Short Term Temperature",
+            "size": 1,
+            "value": 46,
+            "flags": {
+              "value": 224,
+              "string": "VN-- ",
+              "valid": true,
+              "normalized": true,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 56,
+            "name": "Lowest Average Short Term Temperature",
+            "size": 1,
+            "value": 25,
+            "flags": {
+              "value": 224,
+              "string": "VN-- ",
+              "valid": true,
+              "normalized": true,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 64,
+            "name": "Highest Average Long Term Temperature",
+            "size": 1,
+            "value": 44,
+            "flags": {
+              "value": 224,
+              "string": "VN-- ",
+              "valid": true,
+              "normalized": true,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 72,
+            "name": "Lowest Average Long Term Temperature",
+            "size": 1,
+            "value": 25,
+            "flags": {
+              "value": 224,
+              "string": "VN-- ",
+              "valid": true,
+              "normalized": true,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 80,
+            "name": "Time in Over-Temperature",
+            "size": 4,
+            "value": 0,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 88,
+            "name": "Specified Maximum Operating Temperature",
+            "size": 1,
+            "value": 60,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 96,
+            "name": "Time in Under-Temperature",
+            "size": 4,
+            "value": 0,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 104,
+            "name": "Specified Minimum Operating Temperature",
+            "size": 1,
+            "value": 0,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "name": "Transport Statistics",
+        "revision": 1,
+        "table": [
+          {
+            "offset": 8,
+            "name": "Number of Hardware Resets",
+            "size": 4,
+            "value": 34,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 16,
+            "name": "Number of ASR Events",
+            "size": 4,
+            "value": 4,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          },
+          {
+            "offset": 24,
+            "name": "Number of Interface CRC Errors",
+            "size": 4,
+            "value": 0,
+            "flags": {
+              "value": 192,
+              "string": "V--- ",
+              "valid": true,
+              "normalized": false,
+              "supports_dsn": false,
+              "monitored_condition_met": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "power_cycle_count": 18,
+  "temperature": {
+    "current": 33,
+    "lifetime_max": 47,
+    "lifetime_min": 19,
+    "lifetime_over_limit_minutes": 0,
+    "op_limit_max": 60,
+    "lifetime_under_limit_minutes": 0,
+    "op_limit_min": 0
+  }
+}

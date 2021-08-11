@@ -15,7 +15,7 @@ def get_disk_list():
     :return: disk device names as a list
     """
     try:
-        return subprocess.check_output([lsblk, "-n", "-d", "--output", "NAME"]).splitlines()
+        return subprocess.check_output([lsblk, "-n", "-d", "--output", "NAME"]).decode("utf-8").splitlines()
     except subprocess.CalledProcessError as ex:
         print(ex)
         return []

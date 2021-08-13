@@ -59,7 +59,6 @@ class TestMain(unittest.TestCase):
 
             self.assertEqual(check_smartctl.main(), 0)
 
-
     @patch("subprocess.check_output")
     def test_main_disk_list_exception(self, mock_check_output):
         #

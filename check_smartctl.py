@@ -15,7 +15,11 @@ def get_disk_list():
     :return: disk device names as a list
     """
     try:
-        return subprocess.check_output([lsblk, "-n", "-d", "--output", "NAME"]).decode("utf-8").splitlines()
+        return (
+            subprocess.check_output([lsblk, "-n", "-d", "--output", "NAME"])
+            .decode("utf-8")
+            .splitlines()
+        )
     except subprocess.CalledProcessError as ex:
         print(ex)
         return []
@@ -28,7 +32,9 @@ def get_smartctl_devstat(disk):
     :return: output of smartctl devstat as JSON object
     """
     try:
-        return json.loads(subprocess.check_output([smartctl, "-l", "devstat", "/dev/" + disk, "-j"]))
+        return json.loads(
+            subprocess.check_output([smartctl, "-l", "devstat", "/dev/" + disk, "-j"])
+        )
     except subprocess.CalledProcessError as ex:
         # returncode == 2 for megaraid drives
         if ex.returncode != 2:
@@ -59,12 +65,14 @@ def parse_arguments(args):
     """
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--warning-errors',
-                        metavar="warning_errors",
-                        dest="warning_errors",
-                        help="Number of Uncorrectable Errors before a WARNING Nagios Alert.",
-                        type=int,
-                        default=20)
+    parser.add_argument(
+        "--warning-errors",
+        metavar="warning_errors",
+        dest="warning_errors",
+        help="Number of Uncorrectable Errors before a WARNING Nagios Alert.",
+        type=int,
+        default=20,
+    )
 
     return parser.parse_args(args)
 
@@ -90,7 +98,11 @@ def main():
         diskstat = get_smartctl_devstat(disk)
         disk_errors = get_reported_uncorrectable_errors(diskstat)
 
-        if disk_errors >= args.warning_errors:
+        # if disk_errors == None then the drive information wasn't returned from smartctl
+        # and the disk should be skipped
+        if disk_errors == None:
+            pass
+        elif disk_errors >= args.warning_errors:
             error_message = error_message + "/dev/%s errors: %s; " % (disk, disk_errors)
             exit_code = 1
 

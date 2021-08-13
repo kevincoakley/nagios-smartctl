@@ -10,18 +10,17 @@ import check_smartctl
 
 
 class TestMain(unittest.TestCase):
-
     def setUp(self):
         with open("tests/examples/sda.out", "r") as file:
             self.sda = json.load(file)
 
-    @patch('check_smartctl.get_smartctl_devstat')
-    @patch('check_smartctl.get_disk_list')
+    @patch("check_smartctl.get_smartctl_devstat")
+    @patch("check_smartctl.get_disk_list")
     def test_main(self, mock_get_disk_list, mock_get_smartctl_devstat):
         #
         # Test with no issues
         #
-        with patch.object(sys, 'argv', ["check_smartctl.py"]):
+        with patch.object(sys, "argv", ["check_smartctl.py"]):
             #
             # Test OK
             #
@@ -33,9 +32,9 @@ class TestMain(unittest.TestCase):
                             "table": [
                                 {
                                     "name": "Number of Reported Uncorrectable Errors",
-                                    "value": 1
+                                    "value": 1,
                                 }
-                            ]
+                            ],
                         }
                     ]
                 }
@@ -53,13 +52,23 @@ class TestMain(unittest.TestCase):
 
             self.assertEqual(check_smartctl.main(), 1)
 
-    @patch('subprocess.check_output')
+            #
+            # Test Megaraid drive skipped
+            #
+            mock_get_smartctl_devstat.return_value = []
+
+            self.assertEqual(check_smartctl.main(), 0)
+
+
+    @patch("subprocess.check_output")
     def test_main_disk_list_exception(self, mock_check_output):
         #
         # Test failed lsblk command or no disks
         #
-        with patch.object(sys, 'argv', ["check_smartctl.py"]):
+        with patch.object(sys, "argv", ["check_smartctl.py"]):
 
-            mock_check_output.side_effect = subprocess.CalledProcessError(2, ["/bin/lsblk"])
+            mock_check_output.side_effect = subprocess.CalledProcessError(
+                2, ["/bin/lsblk"]
+            )
 
             self.assertEqual(check_smartctl.main(), 3)

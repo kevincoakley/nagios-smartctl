@@ -8,21 +8,20 @@ import check_smartctl
 
 
 class TestGetDiskList(unittest.TestCase):
-
     def setUp(self):
         pass
 
-    @patch('subprocess.check_output')
+    @patch("subprocess.check_output")
     def test_get_disk_list(self, mock_check_output):
         #
         # Test no exceptions
         #
-        mock_check_output.return_value = "sda\nsdb\nsdc"
+        mock_check_output.return_value = b"sda\nsdb\nsdc"
         disk_list = check_smartctl.get_disk_list()
 
         self.assertEqual(disk_list, ["sda", "sdb", "sdc"])
 
-    @patch('subprocess.check_output')
+    @patch("subprocess.check_output")
     def test_get_disk_list_exception(self, mock_check_output):
         #
         # Test CalledProcessError exception

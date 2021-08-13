@@ -7,7 +7,6 @@ import check_smartctl
 
 
 class TestGetReportedUncorrectableErrors(unittest.TestCase):
-
     def setUp(self):
         with open("tests/examples/sda.out", "r") as file:
             self.sda = json.load(file)
@@ -28,15 +27,7 @@ class TestGetReportedUncorrectableErrors(unittest.TestCase):
         #
         # Test JSON missing "General Errors Statistics"
         #
-        smartctl = {
-            "ata_device_statistics": {
-                "pages": [
-                    {
-                        "name": "One"
-                    }
-                ]
-            }
-        }
+        smartctl = {"ata_device_statistics": {"pages": [{"name": "One"}]}}
         output = check_smartctl.get_reported_uncorrectable_errors(smartctl)
         self.assertEqual(output, None)
 
@@ -46,14 +37,7 @@ class TestGetReportedUncorrectableErrors(unittest.TestCase):
         smartctl = {
             "ata_device_statistics": {
                 "pages": [
-                    {
-                        "name": "General Errors Statistics",
-                        "table": [
-                            {
-                                "name": "Errors"
-                            }
-                        ]
-                    }
+                    {"name": "General Errors Statistics", "table": [{"name": "Errors"}]}
                 ]
             }
         }

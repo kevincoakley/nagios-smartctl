@@ -6,7 +6,6 @@ import check_smartctl
 
 
 class ArgumentsTestCase(unittest.TestCase):
-
     def setUp(self):
         pass
 

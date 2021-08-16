@@ -42,16 +42,24 @@ def get_disk_list():
         return []
 
 
-def get_smartctl_devstat(disk):
+def get_smartctl_devstat(disk, ata):
     """
     Get the output of smartctl devstat for disk
     :param disk: str device name
+    :param ata: Boolean ata (true) or non-ata (false)
     :return: output of smartctl devstat as JSON object
     """
     try:
-        return json.loads(
-            subprocess.check_output([smartctl, "-l", "devstat", "/dev/" + disk, "-j"])
-        )
+        if ata:
+            return json.loads(
+                subprocess.check_output(
+                    [smartctl, "-l", "devstat", "/dev/" + disk, "-j"]
+                )
+            )
+        else:
+            return json.loads(
+                subprocess.check_output([smartctl, "-a", "/dev/" + disk, "-j"])
+            )
     except subprocess.CalledProcessError as ex:
         # returncode == 2 for megaraid drives
         if ex.returncode != 2:
@@ -117,7 +125,7 @@ def main():
         return 3
 
     for disk in disks:
-        diskstat = get_smartctl_devstat(disk)
+        diskstat = get_smartctl_devstat(disk, ata)
         disk_errors = get_reported_uncorrectable_errors(diskstat)
 
         # if disk_errors == None then the drive information wasn't returned from smartctl

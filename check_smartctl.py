@@ -73,13 +73,30 @@ def get_reported_uncorrectable_errors(diskstat):
     :param diskstat: smartctl devstat JSON object
     :return: int of the "Number of Reported Uncorrectable Errors"
     """
+    errors = 0
+
+    # Gather errors for ata devices
     if "ata_device_statistics" in diskstat:
         for page in diskstat["ata_device_statistics"]["pages"]:
             if page["name"] == "General Errors Statistics":
                 for table in page["table"]:
                     if table["name"] == "Number of Reported Uncorrectable Errors":
-                        return table["value"]
-    return None
+                        errors = errors + int(table["value"])
+    # Gather errors for non-ata devices
+    elif "scsi_error_counter_log" in diskstat:
+        errors = errors + int(
+            diskstat["scsi_error_counter_log"]["read"]["total_uncorrected_errors"]
+        )
+        errors = errors + int(
+            diskstat["scsi_error_counter_log"]["write"]["total_uncorrected_errors"]
+        )
+        errors = errors + int(
+            diskstat["scsi_error_counter_log"]["verify"]["total_uncorrected_errors"]
+        )
+    else:
+        return None
+
+    return errors
 
 
 def parse_arguments(args):

@@ -66,7 +66,7 @@
       "total_errors_corrected": 10,
       "correction_algorithm_invocations": 5228206,
       "gigabytes_processed": "246241.461",
-      "total_uncorrected_errors": 0
+      "total_uncorrected_errors": 1
     },
     "write": {
       "errors_corrected_by_eccfast": 0,
@@ -75,7 +75,7 @@
       "total_errors_corrected": 278,
       "correction_algorithm_invocations": 2001405,
       "gigabytes_processed": "147764.151",
-      "total_uncorrected_errors": 0
+      "total_uncorrected_errors": 2
     },
     "verify": {
       "errors_corrected_by_eccfast": 0,
@@ -84,7 +84,7 @@
       "total_errors_corrected": 1,
       "correction_algorithm_invocations": 290615,
       "gigabytes_processed": "431.978",
-      "total_uncorrected_errors": 0
+      "total_uncorrected_errors": 3
     }
   }
 }

@@ -5,8 +5,25 @@ import json
 import subprocess
 import sys
 
+lsscsi = "/usr/bin/lsscsi"
 lsblk = "/bin/lsblk"
 smartctl = "/sbin/smartctl"
+
+
+def get_ata():
+    """
+    Use lsssci to test if the disks are ATA or not
+    :return: True if ATA disk; False if not ATA disk
+    """
+    try:
+        ata_output = subprocess.check_output([lsscsi]).decode("utf-8")
+        if "ATA" in ata_output:
+            return True
+        else:
+            return False
+    except subprocess.CalledProcessError as ex:
+        print(ex)
+        return None
 
 
 def get_disk_list():
@@ -88,6 +105,7 @@ def main():
 
     args = parse_arguments(sys.argv[1:])
 
+    ata = get_ata()
     disks = get_disk_list()
 
     if not disks:

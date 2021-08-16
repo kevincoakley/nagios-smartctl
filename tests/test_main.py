@@ -16,7 +16,8 @@ class TestMain(unittest.TestCase):
 
     @patch("check_smartctl.get_smartctl_devstat")
     @patch("check_smartctl.get_disk_list")
-    def test_main(self, mock_get_disk_list, mock_get_smartctl_devstat):
+    @patch("check_smartctl.get_ata")
+    def test_main(self, mock_get_ata, mock_get_disk_list, mock_get_smartctl_devstat):
         #
         # Test with no issues
         #
@@ -40,6 +41,7 @@ class TestMain(unittest.TestCase):
                 }
             }
 
+            mock_get_ata.return_value = True
             mock_get_disk_list.return_value = ["sda"]
             mock_get_smartctl_devstat.return_value = smartctl
 

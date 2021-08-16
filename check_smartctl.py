@@ -108,6 +108,10 @@ def main():
     ata = get_ata()
     disks = get_disk_list()
 
+    if ata is None:
+        print("UNKNOWN - ATA Could Not Be Found")
+        return 3
+
     if not disks:
         print("UNKNOWN - No Disks Found")
         return 3

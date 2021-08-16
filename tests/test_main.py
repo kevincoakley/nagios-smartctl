@@ -61,15 +61,27 @@ class TestMain(unittest.TestCase):
 
             self.assertEqual(check_smartctl.main(), 0)
 
-    @patch("subprocess.check_output")
-    def test_main_disk_list_exception(self, mock_check_output):
+    @patch("check_smartctl.get_disk_list")
+    @patch("check_smartctl.get_ata")
+    def test_main_ata_exception(self, mock_get_ata, mock_get_disk_list):
+        #
+        # Test failed lsscsi command
+        #
+        with patch.object(sys, "argv", ["check_smartctl.py"]):
+            mock_get_ata.return_value = None
+            mock_get_disk_list.return_value = ["sda"]
+
+            self.assertEqual(check_smartctl.main(), 3)
+
+    @patch("check_smartctl.get_disk_list")
+    @patch("check_smartctl.get_ata")
+    def test_main_disk_list_exception(self, mock_get_ata, mock_get_disk_list):
         #
         # Test failed lsblk command or no disks
         #
         with patch.object(sys, "argv", ["check_smartctl.py"]):
 
-            mock_check_output.side_effect = subprocess.CalledProcessError(
-                2, ["/bin/lsblk"]
-            )
+            mock_get_ata.return_value = True
+            mock_get_disk_list.return_value = []
 
             self.assertEqual(check_smartctl.main(), 3)

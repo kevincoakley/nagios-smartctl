@@ -5,8 +5,25 @@ import json
 import subprocess
 import sys
 
+lsscsi = "/usr/bin/lsscsi"
 lsblk = "/bin/lsblk"
 smartctl = "/sbin/smartctl"
+
+
+def get_ata():
+    """
+    Use lsssci to test if the disks are ATA or not
+    :return: True if ATA disk; False if not ATA disk
+    """
+    try:
+        ata_output = subprocess.check_output([lsscsi]).decode("utf-8")
+        if "ATA" in ata_output:
+            return True
+        else:
+            return False
+    except subprocess.CalledProcessError as ex:
+        print(ex)
+        return None
 
 
 def get_disk_list():
@@ -25,16 +42,24 @@ def get_disk_list():
         return []
 
 
-def get_smartctl_devstat(disk):
+def get_smartctl_devstat(disk, ata):
     """
     Get the output of smartctl devstat for disk
     :param disk: str device name
+    :param ata: Boolean ata (true) or non-ata (false)
     :return: output of smartctl devstat as JSON object
     """
     try:
-        return json.loads(
-            subprocess.check_output([smartctl, "-l", "devstat", "/dev/" + disk, "-j"])
-        )
+        if ata:
+            return json.loads(
+                subprocess.check_output(
+                    [smartctl, "-l", "devstat", "/dev/" + disk, "-j"]
+                )
+            )
+        else:
+            return json.loads(
+                subprocess.check_output([smartctl, "-a", "/dev/" + disk, "-j"])
+            )
     except subprocess.CalledProcessError as ex:
         # returncode == 2 for megaraid drives
         if ex.returncode != 2:
@@ -48,13 +73,30 @@ def get_reported_uncorrectable_errors(diskstat):
     :param diskstat: smartctl devstat JSON object
     :return: int of the "Number of Reported Uncorrectable Errors"
     """
+    errors = 0
+
+    # Gather errors for ata devices
     if "ata_device_statistics" in diskstat:
         for page in diskstat["ata_device_statistics"]["pages"]:
             if page["name"] == "General Errors Statistics":
                 for table in page["table"]:
                     if table["name"] == "Number of Reported Uncorrectable Errors":
-                        return table["value"]
-    return None
+                        errors = errors + int(table["value"])
+    # Gather errors for non-ata devices
+    elif "scsi_error_counter_log" in diskstat:
+        errors = errors + int(
+            diskstat["scsi_error_counter_log"]["read"]["total_uncorrected_errors"]
+        )
+        errors = errors + int(
+            diskstat["scsi_error_counter_log"]["write"]["total_uncorrected_errors"]
+        )
+        errors = errors + int(
+            diskstat["scsi_error_counter_log"]["verify"]["total_uncorrected_errors"]
+        )
+    else:
+        return None
+
+    return errors
 
 
 def parse_arguments(args):
@@ -88,14 +130,19 @@ def main():
 
     args = parse_arguments(sys.argv[1:])
 
+    ata = get_ata()
     disks = get_disk_list()
+
+    if ata is None:
+        print("UNKNOWN - ATA Could Not Be Found")
+        return 3
 
     if not disks:
         print("UNKNOWN - No Disks Found")
         return 3
 
     for disk in disks:
-        diskstat = get_smartctl_devstat(disk)
+        diskstat = get_smartctl_devstat(disk, ata)
         disk_errors = get_reported_uncorrectable_errors(diskstat)
 
         # if disk_errors == None then the drive information wasn't returned from smartctl
